@@ -1,0 +1,17 @@
+<div class="d-flex">
+  <div class="list-group w-200px bg-white br-light">
+    <% @chatrooms.each do |chatroom| %>
+      <%= link_to "##{chatroom.name}", chatroom_path(chatroom), class: "list-group-item #{'active' if chatroom == @chatroom}" %>
+    <% end %>
+  </div>
+  <div class="container chatroom">
+    <h1>#<%= @chatroom.name %></h1>
+    <div class="messages">
+      <%= render @chatroom.messages %>
+    </div>
+    <%= simple_form_for [@chatroom, @message], html: {class: "d-flex"} do |f| %>
+      <%= f.input :content, label: false, placeholder: "Message ##{@chatroom.name}", wrapper_html: {class: "flex-grow-1"} %>
+      <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+    <% end %>
+  </div>
+</div>
